@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-// import {bindActionCreators} from 'redux';
+import {bindActionCreators} from 'redux';
 import UserVisual from './UserVisual';
 
-// import {actionCreators as userActions, selector as userSelector} from './../';
+import {actionCreators as userActions, selector as userSelector} from '../index';
 
 class UserConnector extends Component {
 
@@ -21,15 +21,15 @@ class UserConnector extends Component {
   }
 }
 
-//
-// function mapStateToProps(state) {
-//   return {todos: state.todos}
-// }
-//
-// function mapDispatchToProps(dispatch) {
-//   return {
-//     userActions: bindActionCreators(userActions, dispatch),
-//   }
-// }
 
-export default connect()(UserConnector)
+function mapStateToProps(state) {
+  return userSelector(state);
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    userActions: bindActionCreators(userActions, dispatch),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserConnector);

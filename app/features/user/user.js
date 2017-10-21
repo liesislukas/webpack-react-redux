@@ -35,20 +35,21 @@ export default function reducer(state = initialState, action = {}) {
       return state.set('loadingLogin', false);
     case LOGIN_SUCCESS:
       return state.set('loadingLogin', false);
+    default:
+      return state;
   }
-  return state;
 }
 
-///// ACTIONS ///////
+// #### ACTIONS ####
 function login({email, password}) {
-  return {type: LOGIN_TRY, data: {user, password}};
+  return {type: LOGIN_TRY, data: {email, password}};
 }
 
 function get({userToken}) {
   return {type: GET_TRY, data: {userToken}};
 }
 
-///// SELECTORS /////
+// #### SELECTORS ####
 const user = (state) => state[NAME];
 
 function isLoadingUser(state) {
@@ -67,6 +68,7 @@ export const selector = createStructuredSelector({
 
 export const actionCreators = {
   get,
+  login,
 };
 
 export const actionTypes = {
